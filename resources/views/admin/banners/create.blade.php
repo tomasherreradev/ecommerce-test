@@ -10,7 +10,7 @@
             @csrf
 
             {{-- Hidden input to remember active tab --}}
-            <input type="hidden" name="active_tab" id="active_tab" value="{{ old('active_tab', $languages->first()->code) }}">
+            <input type="hidden" name="active_tab" id="active_tab" value="{{ old('active_tab', $languages->first()?->code ?? '') }}">
 
             {{-- Banner type --}}
             <div class="form-group">
@@ -30,7 +30,7 @@
                 @foreach($languages as $language)
                     <li class="nav-item">
                         <button type="button"
-                                class="nav-link {{ old('active_tab', $languages->first()->code) === $language->code ? 'active' : '' }}"
+                                class="nav-link {{ old('active_tab', $languages->first()?->code ?? '') === $language->code ? 'active' : '' }}"
                                 data-bs-toggle="tab"
                                 data-bs-target="#{{ $language->code }}"
                                 data-lang="{{ $language->code }}">
@@ -42,7 +42,7 @@
 
             <div class="tab-content mt-3">
                 @foreach($languages as $language)
-                    <div class="tab-pane fade show {{ old('active_tab', $languages->first()->code) === $language->code ? 'active' : '' }}" id="{{ $language->code }}">
+                    <div class="tab-pane fade show {{ old('active_tab', $languages->first()?->code ?? '') === $language->code ? 'active' : '' }}" id="{{ $language->code }}">
                         
                         {{-- Title --}}
                         <label class="form-label">{{ __('cms.banners.title') }} ({{ $language->code }})</label>
@@ -144,7 +144,7 @@ function base64ToFile(dataurl, filename) {
 
 document.addEventListener("DOMContentLoaded", function () {
     const LANG_CODES = @json($languages->pluck('code')->toArray());
-    const serverActive = @json(old('active_tab', $languages->first()->code));
+    const serverActive = @json(old('active_tab', $languages->first()?->code ?? ''));
     const activeTabInput = document.getElementById('active_tab');
 
     if (serverActive) {

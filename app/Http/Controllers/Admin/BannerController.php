@@ -62,6 +62,11 @@ class BannerController extends Controller
     {
         $languages = Language::where('active', 1)->get();
 
+        if ($languages->isEmpty()) {
+            return redirect()->route('admin.banners.index')
+                ->with('error', 'No hay idiomas activos. Por favor, active al menos un idioma antes de crear un banner.');
+        }
+
         return view('admin.banners.create', compact('languages'));
     }
 
@@ -77,6 +82,11 @@ class BannerController extends Controller
         $banner = Banner::findOrFail($id);
 
         $languages = Language::where('active', 1)->get();
+
+        if ($languages->isEmpty()) {
+            return redirect()->route('admin.banners.index')
+                ->with('error', 'No hay idiomas activos. Por favor, active al menos un idioma antes de editar un banner.');
+        }
 
         $translations = BannerTranslation::where('banner_id', $banner->id)
             ->get()
