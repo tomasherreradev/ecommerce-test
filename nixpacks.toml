@@ -1,19 +1,4 @@
-[phases.setup]
-nixPkgs = [
-    "php82",
-    "php82Extensions.pdo",
-    "php82Extensions.pdo_mysql",
-    "php82Extensions.mysqli",
-    "php82Extensions.mbstring",
-    "php82Extensions.openssl",
-    "composer",
-    "nodejs_18"
-]
-
-[phases.build]
-cmds = [
-    "composer install --optimize-autoloader --no-interaction --no-scripts"
-]
-
 [start]
-cmd = "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT"
+# Railpack usa FrankenPHP, no necesitas 'php artisan serve'
+# Agregamos la migración antes del comando de inicio por defecto
+cmd = "php artisan migrate --force && /start-container.sh"
