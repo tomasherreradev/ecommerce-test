@@ -2,6 +2,7 @@
 nixPkgs = [
     "php82",
     "php82Extensions.pdo_mysql",
+    "php82Extensions.gd",
     "composer",
     "nodejs_20"
 ]
@@ -11,10 +12,11 @@ cmds = [
     "composer install --optimize-autoloader --no-interaction --no-scripts",
     "npm install",
     "npm run build",
-    # Por si acaso Vite 5 ignora el config, movemos el archivo manualmente
-    "cp public/build/.vite/manifest.json public/build/manifest.json || true",
+    # Buscamos el manifest donde sea que esté y lo movemos a la raíz de build
+    "find public/build -name 'manifest.json' -exec cp {} public/build/manifest.json \\;",
     "php artisan storage:link"
 ]
 
 [start]
-cmd = "php artisan config:cache && php artisan migrate --force && /start-container.sh"
+# Añadimos config:clear para que Laravel olvide cualquier ruta vieja de tu PC
+cmd = "php artisan config:clear && php artisan migrate --force && /start-container.sh"
