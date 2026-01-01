@@ -18,7 +18,7 @@ cmds = [
 ]
 
 [start]
-# 1. Limpiamos configuración vieja
-# 2. Ejecutamos migraciones Y seeders
-# 3. Cacheamos la configuración para mejorar rendimiento y leer HTTPS
-cmd = "php artisan config:clear && php artisan migrate --force --seed && php artisan config:cache && /start-container.sh"
+# Ejecuta migraciones y seeders antes de iniciar el servidor
+# Nota: Railway ejecuta este comando cada vez que el contenedor se inicia
+# Si quieres ejecutar seeders solo una vez, usa una variable de entorno RUN_SEEDERS
+cmd = "php artisan config:clear && php artisan migrate --force && php artisan db:seed --force && php artisan config:cache && php artisan serve --host=0.0.0.0 --port=$PORT"
