@@ -20,7 +20,7 @@ export default defineConfig({
         }),
     ],
     build: {
-        manifest: 'manifest.json', // <--- Cambia true por el nombre del archivo
+        manifest: 'manifest.json', 
         outDir: 'public/build',
     }
 });

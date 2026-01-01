@@ -1,0 +1,33 @@
+# Variables de Entorno para Render.com
+# Copia y pega estas variables en Render, reemplazando los valores con los tuyos
+
+APP_NAME=Velstore
+APP_ENV=production
+APP_KEY=base64:iifI4zEyTG+K+cwH1G79izy7Xfsx+TYPWjnZYvKcx2Y=
+APP_DEBUG=false
+APP_URL=https://velstore.onrender.com
+
+LOG_CHANNEL=stderr
+LOG_LEVEL=error
+
+# Base de Datos SkySQL
+DB_CONNECTION=mysql
+DB_HOST=serverless-europe-west2.sysp0000.db2.skysql.com
+DB_PORT=4050
+DB_DATABASE=defaultdb
+DB_USERNAME=dbpgf35543126
+DB_PASSWORD=E1lc(M7wdRJqxkxvy97Tq8U
+
+# Configuración de Laravel
+BROADCAST_DRIVER=log
+CACHE_DRIVER=file
+FILESYSTEM_DISK=local
+QUEUE_CONNECTION=sync
+SESSION_DRIVER=file
+SESSION_LIFETIME=120
+
+# IMPORTANTE: 
+# 1. Reemplaza APP_KEY con el valor que generes (ver instrucciones abajo)
+# 2. Reemplaza APP_URL con la URL que Render te asigne
+# 3. Verifica que DB_DATABASE sea correcto (puede ser "defaultdb" o el nombre que hayas creado)
+
