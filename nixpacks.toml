@@ -11,7 +11,7 @@ cmds = [
     "composer install --optimize-autoloader --no-interaction --no-scripts",
     "npm install",
     "npm run build",
-    # Movemos el manifest a donde Laravel lo espera
+    # Por si acaso Vite 5 ignora el config, movemos el archivo manualmente
     "cp public/build/.vite/manifest.json public/build/manifest.json || true",
     "php artisan storage:link"
 ]

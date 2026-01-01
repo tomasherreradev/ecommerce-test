@@ -20,7 +20,7 @@ export default defineConfig({
         }),
     ],
     build: {
-        manifest: true, // Esto asegura que se genere
-        outDir: 'public/build', // Directorio de salida
+        manifest: 'manifest.json', // <--- Cambia true por el nombre del archivo
+        outDir: 'public/build',
     }
 });
