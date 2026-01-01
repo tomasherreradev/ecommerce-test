@@ -1,4 +1,18 @@
+[phases.setup]
+nixPkgs = [
+    "php82",
+    "php82Extensions.pdo_mysql",
+    "php82Extensions.gd", # Importante para procesar imágenes
+    "composer"
+]
+
+[phases.build]
+cmds = [
+    "composer install --optimize-autoloader --no-interaction --no-scripts",
+    # Creamos el enlace simbólico durante el build para que ya vaya en la imagen
+    "php artisan storage:link"
+]
+
 [start]
-# Railpack usa FrankenPHP, no necesitas 'php artisan serve'
-# Agregamos la migración antes del comando de inicio por defecto
-cmd = "php artisan migrate --force && /start-container.sh"
+# Limpiamos caché antes de migrar por seguridad y lanzamos el contenedor
+cmd = "php artisan config:cache && php artisan migrate --force && /start-container.sh"
