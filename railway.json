@@ -1,0 +1,7 @@
+{
+    "build": {
+      "builder": "RAILPACK",
+      "buildCommand": "install-php-extensions pdo_mysql && composer install --optimize-autoloader --no-interaction --no-scripts"
+    }
+  }
+  
