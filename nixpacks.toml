@@ -12,11 +12,13 @@ cmds = [
     "composer install --optimize-autoloader --no-interaction --no-scripts",
     "npm install",
     "npm run build",
-    # Buscamos el manifest donde sea que esté y lo movemos a la raíz de build
+    # Mueve el manifest para que Laravel encuentre los assets (Vite 5)
     "find public/build -name 'manifest.json' -exec cp {} public/build/manifest.json \\;",
     "php artisan storage:link"
 ]
 
 [start]
-# Añadimos config:clear para que Laravel olvide cualquier ruta vieja de tu PC
-cmd = "php artisan config:clear && php artisan migrate --force && /start-container.sh"
+# 1. Limpiamos configuración vieja
+# 2. Ejecutamos migraciones Y seeders
+# 3. Cacheamos la configuración para mejorar rendimiento y leer HTTPS
+cmd = "php artisan config:clear && php artisan migrate --force --seed && php artisan config:cache && /start-container.sh"
