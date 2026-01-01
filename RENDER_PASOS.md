@@ -20,24 +20,17 @@
 
 **Configuración básica:**
 - **Name**: `velstore` (o el nombre que prefieras)
-- **Environment**: `PHP`
+- **Environment**: Selecciona **"Docker"** ⭐ (ya que PHP no está disponible)
 - **Region**: Elige la más cercana (ej: `Oregon (US West)`)
 - **Branch**: `main` (o la rama que uses)
 - **Root Directory**: (déjalo vacío)
 - **Plan**: `Free`
 
 **Build Command:**
-```bash
-composer install --optimize-autoloader --no-interaction --no-scripts
-npm install
-npm run build
-php artisan storage:link
-```
+- **Déjalo VACÍO** - Render usará automáticamente el `Dockerfile` que ya está en tu proyecto
 
 **Start Command:**
-```bash
-chmod +x render-start.sh && ./render-start.sh
-```
+- **Déjalo VACÍO** - El Dockerfile ya tiene configurado el comando de inicio
 
 ### 4. Configurar Variables de Entorno
 

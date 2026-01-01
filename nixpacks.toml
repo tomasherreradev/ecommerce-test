@@ -20,4 +20,5 @@ cmds = [
 [start]
 # Usa el script bash para mejor manejo de errores y logging
 # El script ejecuta migraciones y seeders antes de iniciar el servidor
-cmd = "chmod +x railway-start.sh && ./railway-start.sh"
+# Funciona tanto para Railway como para Render
+cmd = "chmod +x render-start.sh && ./render-start.sh || chmod +x railway-start.sh && ./railway-start.sh"
