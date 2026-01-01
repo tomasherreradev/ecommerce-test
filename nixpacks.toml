@@ -2,17 +2,19 @@
 nixPkgs = [
     "php82",
     "php82Extensions.pdo_mysql",
-    "php82Extensions.gd", # Importante para procesar imágenes
-    "composer"
+    "composer",
+    "nodejs_20"
 ]
 
 [phases.build]
 cmds = [
     "composer install --optimize-autoloader --no-interaction --no-scripts",
-    # Creamos el enlace simbólico durante el build para que ya vaya en la imagen
+    "npm install",
+    "npm run build",
+    # Movemos el manifest a donde Laravel lo espera
+    "cp public/build/.vite/manifest.json public/build/manifest.json || true",
     "php artisan storage:link"
 ]
 
 [start]
-# Limpiamos caché antes de migrar por seguridad y lanzamos el contenedor
 cmd = "php artisan config:cache && php artisan migrate --force && /start-container.sh"
