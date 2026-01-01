@@ -59,9 +59,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Esto ayuda a Laravel a encontrar el manifest en entornos como Railway
-        $this->app->bind('path.public', function() {
-            return base_path('public');
-        });
+        // Forzar HTTPS si la app está en producción (Railway)
+        if ($this->app->environment('production') || env('FORCE_HTTPS')) {
+            URL::forceScheme('https');
+        }
     }
 }
