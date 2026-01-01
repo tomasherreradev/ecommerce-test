@@ -5,23 +5,24 @@ echo "🚀 Iniciando aplicación Laravel en Railway..."
 
 # Limpiar configuración cacheada
 echo "📦 Limpiando configuración..."
-php artisan config:clear
+php artisan config:clear || echo "⚠️  Error al limpiar configuración"
 
 # Ejecutar migraciones
 echo "🗄️  Ejecutando migraciones..."
-php artisan migrate --force
+php artisan migrate --force || echo "⚠️  Error al ejecutar migraciones"
 
-# Ejecutar seeders (solo si la variable RUN_SEEDERS está configurada o si es el primer despliegue)
-if [ "$RUN_SEEDERS" = "true" ] || [ ! -f "/tmp/.seeders-run" ]; then
-    echo "🌱 Ejecutando seeders..."
-    php artisan db:seed --force && touch /tmp/.seeders-run || echo "⚠️  Advertencia: Los seeders pueden haber fallado o ya se ejecutaron"
+# Ejecutar seeders - SIEMPRE ejecutar para asegurar que los datos estén
+echo "🌱 Ejecutando seeders..."
+if php artisan db:seed --force; then
+    echo "✅ Seeders ejecutados correctamente"
 else
-    echo "⏭️  Saltando seeders (ya ejecutados anteriormente)"
+    echo "❌ ERROR: Los seeders fallaron. Revisa los logs arriba."
+    # No salimos con error para que el servidor pueda iniciar
 fi
 
 # Cachear configuración
 echo "⚡ Cacheando configuración..."
-php artisan config:cache
+php artisan config:cache || echo "⚠️  Error al cachear configuración"
 
 # Iniciar servidor
 echo "🌐 Iniciando servidor en puerto $PORT..."

@@ -18,7 +18,6 @@ cmds = [
 ]
 
 [start]
-# Ejecuta migraciones y seeders antes de iniciar el servidor
-# Nota: Railway ejecuta este comando cada vez que el contenedor se inicia
-# Si quieres ejecutar seeders solo una vez, usa una variable de entorno RUN_SEEDERS
-cmd = "php artisan config:clear && php artisan migrate --force && php artisan db:seed --force && php artisan config:cache && php artisan serve --host=0.0.0.0 --port=$PORT"
+# Usa el script bash para mejor manejo de errores y logging
+# El script ejecuta migraciones y seeders antes de iniciar el servidor
+cmd = "chmod +x railway-start.sh && ./railway-start.sh"
